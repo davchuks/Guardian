@@ -2,12 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- For reading images -->
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <!-- For reading videos -->
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
 
     <!-- For reading audio -->
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
@@ -142,6 +147,12 @@
             android:name=".view.general.PatientListActivity"
             android:exported="false" />
         <activity
+            android:name=".view.general.PatientDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.general.AddPatientLogActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.general.RegisterActivity"
             android:exported="false" />
         <activity
@@ -187,6 +198,7 @@
         <activity android:name=".MedicationTechniqueActivity" />
         <activity android:name=".MedicationSafetyActivity" />
 
+
         <activity android:name=".Module3CoursesActivity" />
         <activity android:name=".InspiringLeadershipEIActivity" />
         <activity android:name=".EmotionalIntelligenceCommunicationActivity" />
@@ -212,6 +224,8 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
+        <activity android:name=".view.general.DashboardActivity"/>
     </application>
 
 </manifest>

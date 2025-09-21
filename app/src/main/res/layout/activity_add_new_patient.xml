@@ -1,149 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="deakin.gopher.guardian.view.general.PatientListActivity">
+    android:background="@color/white"
+    tools:context="deakin.gopher.guardian.view.general.AddNewPatientActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+    <!-- Toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@color/purple_700"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:title="@string/add_new_patient"
+        app:subtitle="Caretaker"
+        app:subtitleCentered="true"
+        app:subtitleTextColor="@color/white"
+        app:titleCentered="true"
+        app:titleTextColor="@android:color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- ScrollView to hold form -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:padding="16dp"
-        android:weightSum="1">
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <com.google.android.material.textview.MaterialTextView
+        <LinearLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/add_new_patient"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:layout_marginBottom="16dp"/>
+            android:orientation="vertical">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtName"
+            <!-- Full Name -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FFFFFF"
-                android:hint="@string/name"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="@string/full_name"
+                android:layout_marginBottom="16dp"
+                app:helperText="Enter full name">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtAddress"
+            <!-- Date of Birth -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/dobInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FFFFFF"
-                android:hint="@string/address"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtDoB"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#FFFFFF"
                 android:hint="@string/date_of_birth"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginBottom="8dp"
+                app:helperText="Tap to select date of birth">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtDob"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:inputType="date" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtPhone"
+            <!-- Age (readonly) -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/ageInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FFFFFF"
-                android:hint="@string/phone"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:hint="Age"
+                android:layout_marginBottom="16dp"
+                app:helperText="Calculated from DOB">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtAge"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtUnderCare"
+            <!-- Select Photo label -->
+            <TextView
+                android:id="@+id/selectPhotoLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_photo"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <!-- Photo selection buttons horizontal -->
+            <LinearLayout
+                android:id="@+id/photoButtonsLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/under_care_of"
-                android:backgroundTint="#FFFFFF"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="24dp"
+                android:weightSum="2">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
+                <!-- Gallery Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSelectFromGallery"
+                    app:icon="@drawable/photo_select"
+                    app:iconTint="@color/purple_700"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="60dp"
+                    app:iconGravity="textStart"
+                    android:textColor="@color/purple_500"
+                    app:iconSize="30dp"
+                    android:text="@string/select_from_gallery"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_marginEnd="8dp"/>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/urlPhoto"
+
+                <!-- Take Photo Button -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnTakePhoto"
+                    app:iconTint="@color/purple_700"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="60dp"
+                    app:icon="@drawable/baseline_add_a_photo_24"
+                    app:iconGravity="textStart"
+                    app:iconSize="26dp"
+                    android:textColor="@color/purple_500"
+                    android:text="@string/take_photo"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <!-- Image preview -->
+            <ImageView
+                android:id="@+id/imgPreview"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/gray_border_rectangle"
+                android:contentDescription="@string/patient_photo"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="24dp"
+                android:src="@drawable/profile" />
+
+
+            <!-- Gender dropdown -->
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/genderLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/gender"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textStyle="bold"
+                android:layout_marginBottom="8dp"/>
+
+            <Spinner
+                android:id="@+id/genderSpinner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FFFFFF"
-                android:hint="@string/photo"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:spinnerMode="dropdown"
+                android:backgroundTint="@color/purple_700"
+                android:popupBackground="@color/white"
+                android:layout_marginBottom="32dp"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txtMedicareNumber"
+            <!-- Add Patient Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="#FFFFFF"
-                android:hint="@string/medicare_no"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:text="@string/add_patient"
+                android:textColor="@android:color/white"
+                android:backgroundTint="@color/purple_500"
+                app:cornerRadius="8dp"
+                android:layout_marginBottom="24dp" />
 
+            <!-- Progress Bar -->
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center_horizontal"
+                android:visibility="gone" />
 
+        </LinearLayout>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnAdd"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_weight="0.1"
-            android:text="@string/save"
-            android:textColor="@android:color/white"
-            style="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnBack"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginTop="15dp"
-            android:layout_weight="0.1"
-            android:text="@string/back"
-            android:textColor="@android:color/white"
-            app:backgroundTint="#54D87F" />
-    </LinearLayout>
-
-    <include
-        android:id="@+id/nav_view"
-        layout="@layout/navigation_view" />
-</androidx.drawerlayout.widget.DrawerLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
